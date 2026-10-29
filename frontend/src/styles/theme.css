@@ -1,0 +1,63 @@
+:root {
+  --bg: #0a0d11; --panel: #12171d; --line: #28323d; --text: #cfe0f0; --dim: #7f93a6;
+  --ok: #3ddc84; --warn: #ffb020; --bad: #ff4d4d; --accent: #ff9f1a;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--text); font: 12px ui-monospace, Consolas, monospace; }
+.app { display: grid; grid-template-rows: 34px 1fr; height: 100%; }
+.statusbar { display: flex; align-items: center; gap: 14px; padding: 0 12px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.statusbar .spacer { flex: 1; }
+.main { display: grid; grid-template-columns: 220px 1fr 400px; min-height: 0; }
+.control, .side { background: var(--panel); padding: 10px; overflow: auto; }
+.control { border-right: 1px solid var(--line); }
+.side { border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+.radar { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+h3 { margin: 14px 0 6px; font-size: 12px; letter-spacing: 1px; color: var(--accent); }
+.row { display: flex; align-items: center; gap: 8px; }
+button { background: #1b232c; color: var(--text); border: 1px solid var(--line); padding: 3px 8px; cursor: pointer; font: inherit; }
+button:hover { border-color: var(--accent); }
+.toggle { display: block; width: 100%; margin-bottom: 4px; text-align: left; }
+.toggle.on { border-color: var(--ok); color: var(--ok); }
+.small { font-size: 11px; } .dim { color: var(--dim); }
+.badge { padding: 1px 6px; border: 1px solid var(--line); border-radius: 3px; font-size: 11px; }
+.badge-ok { color: var(--ok); border-color: var(--ok); } .badge-warn { color: var(--warn); border-color: var(--warn); }
+.badge-bad { color: var(--bad); border-color: var(--bad); }
+.flightlist { flex: 1; overflow: auto; min-height: 0; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; color: var(--dim); font-weight: normal; position: sticky; top: 0; background: var(--panel); }
+td, th { padding: 2px 4px; white-space: nowrap; }
+tbody tr { cursor: pointer; } tbody tr:hover { background: #1b232c; }
+tr.sel { background: #26323f; } tr.emg { color: var(--bad); }
+.detail { border: 1px solid var(--line); padding: 8px; }
+
+.side { overflow: hidden; }
+.opsbox { max-height: 46%; overflow: auto; flex: none; }
+.tabbody { flex: 1; overflow: auto; min-height: 0; }
+.tabs { display: flex; gap: 2px; }
+.tabs button { flex: 1; }
+.tabs button.on { border-color: var(--accent); color: var(--accent); }
+.alert { padding: 3px 5px; margin: 3px 0; border-left: 4px solid var(--dim); cursor: pointer; }
+.alert.acked { opacity: .5; }
+.alert button { margin-left: 6px; padding: 0 5px; }
+.sev-WARNING { border-color: var(--bad); }
+.sev-CAUTION { border-color: var(--warn); }
+.sev-ADVISORY { border-color: #ffe14d; }
+.sevtag { font-weight: bold; }
+.card { border: 1px solid var(--line); padding: 5px; margin: 5px 0; }
+.adv { border-top: 1px dashed var(--line); margin-top: 5px; padding-top: 4px; cursor: default; }
+.adv:hover { background: #17222d; }
+.adv button { margin-right: 4px; }
+.strip { border: 1px solid var(--line); padding: 4px 6px; margin: 3px 0; cursor: pointer; }
+.strip.sel { background: #26323f; }
+.strip.emg { border-color: var(--bad); }
+.wake { display: inline-block; min-width: 14px; text-align: center; border: 1px solid var(--dim); font-size: 10px; }
+.wake-H, .wake-J { color: var(--warn); border-color: var(--warn); }
+.spc-ok { color: var(--ok); }
+.spc-marginal { color: var(--warn); }
+.spc-short { color: var(--bad); font-weight: bold; }
+.rwbox { border: 1px solid var(--line); padding: 5px; margin: 5px 0; }
+.timeline { position: relative; height: 22px; background: #0b1015; border: 1px solid var(--line); margin-top: 4px; }
+.timeline .tick { position: absolute; top: 0; bottom: 0; border-left: 1px dotted var(--line); }
+.bar { position: absolute; top: 3px; height: 14px; font-size: 9px; overflow: hidden; white-space: nowrap; color: #000; padding: 0 2px; }
+.bar.ARR { background: #7fe0ff; } .bar.DEP { background: #ff9f1a; } .bar.pred { opacity: .55; }

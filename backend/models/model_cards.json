@@ -1,0 +1,121 @@
+{
+ "trajectory_vertical": {
+  "type": "LightGBM regressor",
+  "task": "altitude error vs vertical-rate dead reckoning at +30/+60 s",
+  "train": [
+   "EDDF",
+   "EGLL",
+   "EHAM",
+   "OMDB",
+   "VABB",
+   "WSSS",
+   "VOBL"
+  ],
+  "test_airports": [
+   "LFPG",
+   "VIDP"
+  ],
+  "altitude_mae_ft_physics_vs_ml": {
+   "LFPG_30s": [
+    152,
+    127
+   ],
+   "VIDP_30s": [
+    118,
+    115
+   ],
+   "LFPG_60s": [
+    399,
+    296
+   ],
+   "VIDP_60s": [
+    298,
+    263
+   ]
+  },
+  "note": "Horizontal ML did not beat dead reckoning, so horizontal position uses physics only."
+ },
+ "eta": {
+  "type": "LightGBM L1 residual on physics ETA; hybrid uses physics below 5 nm",
+  "train": [
+   "EDDF",
+   "EGLL",
+   "EHAM",
+   "OMDB"
+  ],
+  "test_airports": [
+   "LFPG",
+   "VABB"
+  ],
+  "mae_s_physics_vs_hybrid": {
+   "LFPG": [
+    188.8,
+    83.1
+   ],
+   "VABB": [
+    157.4,
+    67.7
+   ]
+  },
+  "band": {
+   "nominal": "P10-P90 of error per distance bucket",
+   "cross_airport_coverage": {
+    "cal_LFPG_test_VABB": 0.66,
+    "cal_VABB_test_LFPG": 0.46
+   },
+   "pooled_in_sample_coverage": 0.8
+  },
+  "note": "Single day of data. Band is a typical range, not a guaranteed 80% interval."
+ },
+ "anomaly": {
+  "type": "Isolation Forest, unsupervised",
+  "train": [
+   "EDDF",
+   "EGLL",
+   "EHAM",
+   "LFPG",
+   "OMDB"
+  ],
+  "heldout": [
+   "VABB",
+   "VIDP",
+   "VOBL",
+   "WSSS"
+  ],
+  "per_airport_metrics_with_30plus_rule_events": {
+   "EGLL": {
+    "n": 658,
+    "events": 256,
+    "flagged_fixed_pct": 10.6,
+    "recall_fixed": 0.27,
+    "recall_rank4": 0.11,
+    "precision_rank4": 1.0
+   },
+   "OMDB": {
+    "n": 836,
+    "events": 45,
+    "flagged_fixed_pct": 2.6,
+    "recall_fixed": 0.18,
+    "recall_rank4": 0.22,
+    "precision_rank4": 0.29
+   },
+   "VABB": {
+    "n": 473,
+    "events": 60,
+    "flagged_fixed_pct": 4.7,
+    "recall_fixed": 0.27,
+    "recall_rank4": 0.25,
+    "precision_rank4": 0.79
+   },
+   "WSSS": {
+    "n": 540,
+    "events": 33,
+    "flagged_fixed_pct": 4.1,
+    "recall_fixed": 0.39,
+    "recall_rank4": 0.39,
+    "precision_rank4": 0.59
+   }
+  },
+  "note": "Rules (go-around, hold) are the primary alert. Model ranks unusual approaches; recall is low. Use a rolling percentile at runtime, not the fixed threshold (does not transfer to VIDP)."
+ }
+}

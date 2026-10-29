@@ -1,0 +1,10 @@
+{
+  "_note": "Wake-turbulence distance minima on final (nm), leader -> follower. Common ICAO defaults: VERIFY against your airport's AIP / ATS procedures before relying on them.",
+  "ICAO": {
+    "J": {"J": 4, "H": 6, "M": 7, "L": 8},
+    "H": {"J": 4, "H": 4, "M": 5, "L": 6},
+    "M": {"J": 3, "H": 3, "M": 3, "L": 5},
+    "L": {"J": 3, "H": 3, "M": 3, "L": 3}
+  },
+  "default_min_nm": 3
+}
